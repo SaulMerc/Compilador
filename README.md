@@ -1,7 +1,7 @@
 # Compilador
 Simular los pasos que realiza un compilador
 
-int      reservado
+int      reservado <br>
 public   reservada
 class    reservada
 System   reservada
