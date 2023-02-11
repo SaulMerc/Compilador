@@ -1,0 +1,167 @@
+import   |Palabra reservada|
+java   |Palabra reservada|
+.   |Tokens|
+util   |Palabra reservada|
+.   |Tokens|
+Scanner   |Palabra reservada|
+;   |Tokens|
+public   |Palabra reservada|
+class   |Palabra reservada|
+ejem   |Identificador|
+{   |Tokens|
+public   |Palabra reservada|
+static   |Palabra reservada|
+void   |Palabra reservada|
+main   |Identificador|
+(   |Tokens|
+String   |Palabra reservada|
+[   |Tokens|
+]   |Tokens|
+args   |Palabra reservada|
+)   |Tokens|
+{   |Tokens|
+int   |Palabra reservada|
+a   |Identificador|
+,   |Tokens|
+b   |Identificador|
+;   |Tokens|
+Scanner   |Palabra reservada|
+ine   |Identificador|
+=   |Operadores Aritméticos|
+new   |Identificador|
+Scanner   |Palabra reservada|
+(   |Tokens|
+System   |Palabra reservada|
+.   |Tokens|
+in   |Palabra reservada|
+)   |Tokens|
+;   |Tokens|
+System   |Palabra reservada|
+.   |Tokens|
+out   |Palabra reservada|
+.   |Tokens|
+print   |Palabra reservada|
+(   |Tokens|
+" Ingrese el primer número : "   |Literal|
+)   |Tokens|
+;   |Tokens|
+a   |Identificador|
+=   |Operadores Aritméticos|
+in   |Palabra reservada|
+.   |Tokens|
+nextInt   |Palabra reservada|
+(   |Tokens|
+)   |Tokens|
+;   |Tokens|
+System   |Palabra reservada|
+.   |Tokens|
+out   |Palabra reservada|
+.   |Tokens|
+println   |Palabra reservada|
+(   |Tokens|
+)   |Tokens|
+;   |Tokens|
+2abc   |Error de sintaxis|
+System   |Palabra reservada|
+.   |Tokens|
+out   |Palabra reservada|
+.   |Tokens|
+print   |Palabra reservada|
+(   |Tokens|
+" Ingrese el segundo número : "   |Literal|
+)   |Tokens|
+;   |Tokens|
+b   |Identificador|
+=   |Operadores Aritméticos|
+ine   |Identificador|
+.   |Tokens|
+nextInt   |Palabra reservada|
+(   |Tokens|
+)   |Tokens|
+;   |Tokens|
+System   |Palabra reservada|
+.   |Tokens|
+out   |Palabra reservada|
+.   |Tokens|
+println   |Palabra reservada|
+(   |Tokens|
+)   |Tokens|
+;   |Tokens|
+System   |Palabra reservada|
+.   |Tokens|
+out   |Palabra reservada|
+.   |Tokens|
+println   |Palabra reservada|
+(   |Tokens|
+" El resultado es : "   |Literal|
++   |Operadores Aritméticos|
+(   |Tokens|
+a   |Identificador|
++   |Operadores Aritméticos|
+b   |Identificador|
+)   |Tokens|
+;   |Tokens|
+switch   |Palabra reservada|
+(   |Tokens|
+a   |Identificador|
+)   |Tokens|
+{   |Tokens|
+case   |Palabra reservada|
+2   |Entero|
+:   |Tokens|
+System   |Palabra reservada|
+.   |Tokens|
+out   |Palabra reservada|
+.   |Tokens|
+println   |Palabra reservada|
+(   |Tokens|
+" Ingresaste un 2 "   |Literal|
+)   |Tokens|
+;   |Tokens|
+break   |Palabra reservada|
+;   |Tokens|
+default   |Palabra reservada|
+:   |Tokens|
+break   |Palabra reservada|
+;   |Tokens|
+}   |Tokens|
+if   |Palabra reservada|
+(   |Tokens|
+a   |Identificador|
+<   |Operadores lógicos|
+10   |Entero|
+&&   |Operadores lógicos|
+b   |Identificador|
+>   |Operadores lógicos|
+2   |Entero|
+)   |Tokens|
+{   |Tokens|
+a   |Identificador|
+=   |Operadores Aritméticos|
+0   |Entero|
+;   |Tokens|
+}   |Tokens|
+else   |Palabra reservada|
+if   |Palabra reservada|
+(   |Tokens|
+a   |Identificador|
+!   |Operadores lógicos|
+=   |Operadores Aritméticos|
+10   |Entero|
+)   |Tokens|
+{   |Tokens|
+a   |Identificador|
+=   |Operadores Aritméticos|
+9   |Entero|
+;   |Tokens|
+}   |Tokens|
+else   |Palabra reservada|
+{   |Tokens|
+a   |Identificador|
+=   |Operadores Aritméticos|
+-   |Operadores Aritméticos|
+1   |Entero|
+;   |Tokens|
+}   |Tokens|
+}   |Tokens|
+}   |Tokens|
