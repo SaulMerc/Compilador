@@ -1,17 +1,6 @@
 # Compilador
 Simular los pasos que realiza un compilador
 
-int      reservado <br>
-public   reservada <br>
-class    reservada <br>
-System   reservada <br>
-out      reservada <br>
-println  reservada <br>
-void     reservada <br>
-print    reservada <br>
-String   reservada <br>
-char     reservada <br>
-
-Expresion para las literales
-Expresion para los números
-Expresion para operadores
+Se agregaron los elementos para el analizador léxico.
+Se termino el inicio del analizador sintáctico para detectar que tipo de elemento es.
+Detecta que tipo es
