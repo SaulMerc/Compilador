@@ -18,5 +18,7 @@ public class comp {
         sep.rmComentario();
         sep.formato();
         sep.resultado();
+        sep.recorrerPila();
+        // sep.buscarInfo("r3");
     }
 }
