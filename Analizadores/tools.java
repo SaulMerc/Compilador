@@ -17,6 +17,8 @@ public class tools {
     ArrayList<String> pila = new ArrayList<String>();
     ArrayList<String> cadena = new ArrayList<String>();
     ArrayList<String> arbolito = new ArrayList<String>();
+    ArrayList<String> cadenaCopia;
+    int contador = -1;
 
     /**
      * Método para eliminar los comentarios del código fuente
@@ -162,6 +164,7 @@ public class tools {
                 }
             }
             cadena.add("23");
+            cadenaCopia = new ArrayList<>(cadena);
             pila.add("0");
         } finally {
             if (in != null) {
@@ -193,6 +196,7 @@ public class tools {
                 if (!cadena.get(0).equals("23")) {
                     arbolito.add(cadena.get(0));
                     cadena.remove(0);
+                    contador++;
                 }
 
             } else if (ver.contains("r")) {
@@ -235,13 +239,16 @@ public class tools {
                 }
 
             } else if (ver.equals("n")) {
-                System.out.println("Error en la cadena");
-                accept = true;
+                System.out.println("Error -------" + (contador + 1));
+                if (Errores(contador)) {
+                    contador++;
+                }
+                // accept = true;
             } else {
                 pila.add(ver);
             }
         }
-        arbolote();
+        // arbolote();
     }
 
     /**
@@ -341,7 +348,7 @@ public class tools {
         String result21 = result20.replaceAll("\\*", " * ");
         String result22 = result21.replaceAll("/", " / ");
         String result23 = result22.replaceAll("\"", " \" ");
-        String result24 = result23.replaceAll("\\@\\@", " == ");   
+        String result24 = result23.replaceAll("\\@\\@", " == ");
         String result25 = result24.replaceAll("\\%\\%", " <= ");
         String result26 = result25.replaceAll("\\#\\#", " >= ");
         return result26;
@@ -357,29 +364,270 @@ public class tools {
             arc.delete();
         }
     }
+
     public void arbolote() {
-        int i = arbolito.size()-1;
-        //El padre toma el valor de la ultima posicion
-        int padre = Integer.parseInt(arbolito.get(arbolito.size()-1));
-        System.out.println("Padre padre we:"+padre);
-        while ( i >= 0) {
-            if(Integer.parseInt(arbolito.get(i)) <= 23){
-                //Creo variable hijo
-                int hijo = Integer.parseInt(arbolito.get(i)); 
-                //La añado al padre que no ha cambiado
+        int i = arbolito.size() - 1;
+        // El padre toma el valor de la ultima posicion
+        int padre = Integer.parseInt(arbolito.get(arbolito.size() - 1));
+        System.out.println("Padre padre we:" + padre);
+        while (i >= 0) {
+            if (Integer.parseInt(arbolito.get(i)) <= 23) {
+                // Creo variable hijo
+                int hijo = Integer.parseInt(arbolito.get(i));
+                // La añado al padre que no ha cambiado
                 arbol.addNode(hijo, padre);
-                System.out.println("Hijo:"+hijo);
-            }else{
-                //Se crea el ultimo nodo hijo
+                System.out.println("Hijo:" + hijo);
+            } else {
+                // Se crea el ultimo nodo hijo
                 arbol.addNode(Integer.parseInt(arbolito.get(i)), padre);
-                //El valor de la posicion lo hago padre
+                // El valor de la posicion lo hago padre
                 padre = Integer.parseInt(arbolito.get(i));
-                System.out.println("Padre:"+padre);
+                System.out.println("Padre:" + padre);
             }
             i--;
         }
         // Prueba con otras impresiones
         arbol.preOrderTraversal(arbol.root);
-        
+
     }
+
+    /**
+     * Metodo para arreglar los errores
+     */
+    public boolean Errores(int contador) {
+        boolean cadR = false;
+        if (contador == -1) {
+            cadena.add(0, "4");
+            System.out.println("Faltó un tipo");
+        } else {
+            switch (cadena.get(0)) {
+                case "12":
+                    if (cadenaCopia.get(contador).equals("12")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un ; de más");
+                    } else {
+                        cadena.add(0, "0");
+                        System.out.println("Faltó un identificador");
+                    }
+                    break;
+                case "19":
+                if (cadenaCopia.get(contador).equals("0")) {
+                        cadena.add(0, "12");
+                        System.out.println("Faltó un ;");
+                    } else if (cadenaCopia.get(contador).equals("19")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un if de más");
+                    }else if (cadenaCopia.get(contador).equals("1")) {
+                        cadena.add(0, "12");
+                        System.out.println("Faltó un ;");
+                    } else if (cadenaCopia.get(contador).equals("4")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un tipo de más");
+                    } else {
+                        cadena.add(0, "16");
+                        System.out.println("Faltó un {");
+                    }
+                break;
+                case "17":
+                case "4":
+                    
+                    break;
+                case "20":
+                    if (cadenaCopia.get(contador).equals("0")) {
+                        cadena.add(0, "12");
+                        System.out.println("Faltó un ;");
+                    } else if (cadenaCopia.get(contador).equals("1")) {
+                        cadena.add(0, "12");
+                        System.out.println("Faltó un ;");
+                    } else {
+                        cadena.add(0, "16");
+                        System.out.println("Faltó un {");
+                    }
+                    break;
+                case "22":
+                if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("17")) {
+                        pila.remove(pila.size()-1);
+                        pila.remove(pila.size()-1);
+                        pila.add("19");
+                        pila.add("28");
+                        pila.add("14");
+                        pila.add("37");
+                        pila.add("45");
+                        pila.add("55");
+                        pila.add("15");
+                        pila.add("72");
+                        pila.add("16");
+                        pila.add("85");
+                        pila.add("35");
+                        pila.add("90");
+                        pila.add("17");
+                        pila.add("93"); 
+                        System.out.println("Hay un identificador de más antes de un else");
+                }else{
+                   cadena.add(0, "17");
+                    System.out.println("Faltó un }"); 
+                }
+                    
+                    break;
+                case "0":
+                    if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("4")) {
+                        cadena.add(0, "13");
+                        System.out.println("Faltó una ,");
+                    } else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("18")) {
+                        cadena.add(0, "5");
+                        System.out.println("Faltó un operador");
+                    } else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("16")) {
+                        cadena.add(0, "18");
+                        System.out.println("Faltó un =");
+                    } else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("1")) {
+                        cadena.add(0, "5");
+                        System.out.println("Faltó un operador");
+                    } else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("12")) {
+                        cadena.add(0, "18");
+                        System.out.println("Faltó un =");
+                    } else if (cadenaCopia.get(contador).equals("16") && cadenaCopia.get(contador - 1).equals("15")
+                            && cadenaCopia.get(contador - 2).equals("14")
+                            && cadenaCopia.get(contador - 3).equals("0")) {
+                        cadena.add(0, "4");
+                        System.out.println("Faltó un tipo");
+                    }else if (cadenaCopia.get(contador).equals("19") && cadenaCopia.get(contador+2).equals("14")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un identificador de más");
+                    } else if (cadenaCopia.get(contador).equals("19") || cadenaCopia.get(contador).equals("20")) {
+                        cadena.add(0, "14");
+                        System.out.println("Faltó un (");
+                    } else if (cadenaCopia.get(contador).equals("12")) {
+                        cadena.add(0, "4");
+                        System.out.println("Faltó un tipo");
+                    } else if (cadenaCopia.get(contador).equals("0")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un identificador de más");
+                    }else if (cadenaCopia.get(contador).equals("4")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un tipo de más");
+                    }
+                    break;
+                case "16":
+                    if (cadenaCopia.get(contador).equals("17")) {
+                        cadena.add(0, "22");
+                        System.out.println("Faltó un else");
+                    } else if (cadenaCopia.get(contador).equals("16")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un { de más");
+                    }else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador-1).equals("15")) {                        
+                        pila.remove(pila.size()-1);
+                        pila.remove(pila.size()-1);
+                        System.out.println("Hay un identificador de más");
+                    }else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador-1).equals("22")) {                        
+                        pila.remove(pila.size()-1);
+                        pila.remove(pila.size()-1);
+                        System.out.println("Hay un identificador de más");
+                    } else {
+                        cadena.add(0, "15");
+                        System.out.println("Faltó un (");
+                    }
+                    break;
+                case "13":
+                case "18":
+                    if (cadenaCopia.get(contador).equals("18")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un = de más");
+                    } else {
+                        cadena.add(0, "0");
+                        System.out.println("Faltó un identificador");
+                    }
+                    break;
+                case "7":
+                case "8":
+                case "9":
+                case "11":
+                    cadena.add(0, "0");
+                    System.out.println("Faltó un identificador");
+                    break;
+                case "21":
+                    if (cadenaCopia.get(contador).equals("0") ||
+                            cadenaCopia.get(contador).equals("1") ||
+                            cadenaCopia.get(contador).equals("2") ||
+                            cadenaCopia.get(contador).equals("3")) {
+                        cadena.add(0, "12");
+                        System.out.println("Faltó un ;");
+                    } else {
+                        cadena.add(0, "17");
+                        System.out.println("Faltó un }");
+                    }
+                    break;
+                case "5":
+                case "6":
+                    cadena.add(0, "0");
+                    System.out.println("Faltó un identificador");
+                    break;
+                case "1":
+                case "2":
+                case "3":
+                    if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("18")) {
+                        cadena.add(0, "5");
+                        System.out.println("Faltó un operador");
+                    } else if (cadenaCopia.get(contador).equals("0")) {
+                        cadena.add(0, "18");
+                        System.out.println("Faltó un =");
+                    } else if (cadenaCopia.get(contador).equals("17")) {
+                        cadena.add(0, "21");
+                        System.out.println("Faltó un return");
+                    } else {
+                        cadena.add(0, "5");
+                        System.out.println("Faltó un +");
+                    }
+                    break;
+                case "14":
+                    if (cadenaCopia.get(contador).contains("4")) {
+                        cadena.add(0, "0");
+                        System.out.println("Faltó un identificador");
+                    } else if (cadenaCopia.get(contador).contains("17") ||
+                            cadenaCopia.get(contador).contains("12")) {
+                        cadena.add(0, "19");
+                        System.out.println("Faltó un if");
+                    }
+                    break;
+                case "15":
+                    if (cadenaCopia.get(contador).equals("14") ||
+                            cadenaCopia.get(contador).equals("11") ||
+                            cadenaCopia.get(contador).equals("10") ||
+                            cadenaCopia.get(contador).equals("7")) {
+                        cadena.add(0, "0");
+                        System.out.println("Faltó un identificador");
+                    } else if (cadenaCopia.get(contador).equals("15") && cadenaCopia.get(contador - 1).equals("14")) {
+                        cadena.remove(0);
+                        cadR = true;
+                        System.out.println("Hay un ) de más");
+                    } else if (cadenaCopia.get(contador).equals("0")) {
+                        cadena.add(0, "14");
+                        System.out.println("Faltó un (");
+                    }
+                    break;
+                case "10":
+                    cadena.add(0, "14");
+                    System.out.println("Faltó un (");
+                    break;
+                case "23":
+                    cadena.add(0, "17");
+                    System.out.println("Faltó un }");
+                    break;
+                default:
+                    cadena.remove(0);
+                    cadR = true;
+                    System.out.println("Pánico");
+                    break;
+            }
+        }
+        return cadR;
+    }
+
 }
