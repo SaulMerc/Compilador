@@ -4,8 +4,6 @@ real 2
 cadena 3
 int 4
 String 4
-boolean 4
-char 4
 float 4
 + 5
 * 6

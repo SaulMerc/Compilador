@@ -17,6 +17,8 @@ public class tools {
     ArrayList<String> pila = new ArrayList<String>();
     ArrayList<String> cadena = new ArrayList<String>();
     ArrayList<String> arbolito = new ArrayList<String>();
+    ArrayList<String> ids = new ArrayList<String>();
+    ArrayList<String> tipos = new ArrayList<String>();
     ArrayList<String> cadenaCopia;
     int contador = -1;
 
@@ -103,6 +105,8 @@ public class tools {
      */
     public void resultado() throws IOException {
         // Variables inicializadas
+        boolean uso = false, tipoI = false, tipoS = false, tipoB = false;
+        String usoAux = "";
         Scanner in = null;
         to.lectura("P-reservada.txt");
 
@@ -119,6 +123,18 @@ public class tools {
                     int op = to.vals.get(linea);
 
                     cadena.add(Integer.toString(op));
+                    if (linea.equals("int")) {
+                        tipoI = true;
+                    } else if (linea.equals("String")) {
+                        tipoS = true;
+                    } else if (linea.equals("float")) {
+                        tipoB = true;
+                    } else if (linea.equals(";") || linea.equals(")")) {
+                        tipoI = false;
+                        tipoS = false;
+                        tipoB = false;
+                        uso = false;
+                    }
 
                 } else {
                     // Expresiones para identificar palabras
@@ -150,14 +166,57 @@ public class tools {
                     buscador4 = literales.matcher(linea);
                     boolean encontrado4 = buscador4.find();
 
-                    if (encontrado) {
+                    if (encontrado) {// identificador
                         cadena.add("0");
-                    } else if (encontrado2) {
+
+                        if (tipoI) {
+                            if (existe(linea)) {
+                                System.out.println(linea + "|Error, el identificador ya ha sido declarado|");
+                            } else {
+                                tipos.add("int");
+                                ids.add(linea);
+                            }
+                        } else if (tipoS) {
+                            if (existe(linea)) {
+                                System.out.println(linea + " |Error, el identificador ya ha sido declarado|");
+                            } else {
+                                tipos.add("String");
+                                ids.add(linea);
+                            }
+                        } else if (tipoB) {
+                            if (existe(linea)) {
+                                System.out.println(linea + " |Error, el identificador ya ha sido declarado|");
+                            } else {
+                                tipos.add("float");
+                                ids.add(linea);
+                            }
+                        }
+                        // uso
+                        else {
+                            if (existe(linea)) {
+                                uso = true;
+                                usoAux = linea;
+                            } else {
+                                System.out.println(linea + " |Error, el identificador no ha sido declarado|");
+                            }
+
+                        }
+
+                    } else if (encontrado2) {// entero
                         cadena.add("1");
-                    } else if (encontrado3) {
+                        if (uso && !valTipo("int", usoAux)) {
+                            System.out.println(linea + " |Error, el valor no coincide con el tipo de la variable|");
+                        }
+                    } else if (encontrado3) {// Flotantes
                         cadena.add("2");
-                    } else if (encontrado4) {
+                        if (uso && !valTipo("float", usoAux)) {
+                            System.out.println(linea + " |Error, el valor no coincide con el tipo de la variable|");
+                        }
+                    } else if (encontrado4) {// Literales
                         cadena.add("3");
+                        if (uso && !valTipo("String", usoAux)) {
+                            System.out.println(linea + " |Error, el valor no coincide con el tipo de la variable|");
+                        }
                     } else {
                         System.out.println(linea + "|Error de sintaxis|");
                     }
@@ -166,6 +225,8 @@ public class tools {
             cadena.add("23");
             cadenaCopia = new ArrayList<>(cadena);
             pila.add("0");
+            // System.out.println(ids.toString());
+            // System.out.println(tipos.toString());
         } finally {
             if (in != null) {
                 in.close();
@@ -205,7 +266,7 @@ public class tools {
                 if (ver.equals("r0")) {
                     accept = true;
                     System.out.println("La cadena ha sido aceptada");
-                    System.out.println(arbolito.toString());
+                    // System.out.println(arbolito.toString());
                 } else {
                     Scanner in = null;
                     boolean salir = false;
@@ -276,12 +337,11 @@ public class tools {
                     rsl = in.next();
 
                     if (pil.equals(pila.get(pila.size() - 2)) && cad.equals(pila.get(pila.size() - 1))) {
+                        // System.out.print(pila.toString());
+                        // System.out.print(" ");
+                        // System.out.print(cadena.toString());
+                        // System.out.print(" ");
                         // System.out.println(rsl);
-                        System.out.print(pila.toString());
-                        System.out.print(" ");
-                        System.out.print(cadena.toString());
-                        System.out.print(" ");
-                        System.out.println(rsl);
                         return rsl;
                     }
                 }
@@ -295,12 +355,10 @@ public class tools {
                     rsl = in.next();
 
                     if (pil.equals(pila.get(pila.size() - 1)) && cad.equals(cadena.get(0))) {
-                        System.out.print(pila.toString());
-                        System.out.print(" ");
-                        System.out.print(cadena.toString());
-                        System.out.print(" ");
-                        System.out.println(rsl);
-
+                        // System.out.print(pila.toString());
+                        // System.out.print(" ");
+                        // System.out.print(cadena.toString());
+                        // System.out.print(" ");
                         // System.out.println(rsl);
                         return rsl;
                     } else {
@@ -412,14 +470,14 @@ public class tools {
                     }
                     break;
                 case "19":
-                if (cadenaCopia.get(contador).equals("0")) {
+                    if (cadenaCopia.get(contador).equals("0")) {
                         cadena.add(0, "12");
                         System.out.println("Faltó un ;");
                     } else if (cadenaCopia.get(contador).equals("19")) {
                         cadena.remove(0);
                         cadR = true;
                         System.out.println("Hay un if de más");
-                    }else if (cadenaCopia.get(contador).equals("1")) {
+                    } else if (cadenaCopia.get(contador).equals("1")) {
                         cadena.add(0, "12");
                         System.out.println("Faltó un ;");
                     } else if (cadenaCopia.get(contador).equals("4")) {
@@ -430,10 +488,10 @@ public class tools {
                         cadena.add(0, "16");
                         System.out.println("Faltó un {");
                     }
-                break;
+                    break;
                 case "17":
                 case "4":
-                    
+
                     break;
                 case "20":
                     if (cadenaCopia.get(contador).equals("0")) {
@@ -448,29 +506,10 @@ public class tools {
                     }
                     break;
                 case "22":
-                if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("17")) {
-                        pila.remove(pila.size()-1);
-                        pila.remove(pila.size()-1);
-                        pila.add("19");
-                        pila.add("28");
-                        pila.add("14");
-                        pila.add("37");
-                        pila.add("45");
-                        pila.add("55");
-                        pila.add("15");
-                        pila.add("72");
-                        pila.add("16");
-                        pila.add("85");
-                        pila.add("35");
-                        pila.add("90");
-                        pila.add("17");
-                        pila.add("93"); 
-                        System.out.println("Hay un identificador de más antes de un else");
-                }else{
-                   cadena.add(0, "17");
-                    System.out.println("Faltó un }"); 
-                }
-                    
+
+                    cadena.add(0, "17");
+                    System.out.println("Faltó un }");
+
                     break;
                 case "0":
                     if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("4")) {
@@ -493,7 +532,7 @@ public class tools {
                             && cadenaCopia.get(contador - 3).equals("0")) {
                         cadena.add(0, "4");
                         System.out.println("Faltó un tipo");
-                    }else if (cadenaCopia.get(contador).equals("19") && cadenaCopia.get(contador+2).equals("14")) {
+                    } else if (cadenaCopia.get(contador).equals("19") && cadenaCopia.get(contador + 2).equals("14")) {
                         cadena.remove(0);
                         cadR = true;
                         System.out.println("Hay un identificador de más");
@@ -507,7 +546,7 @@ public class tools {
                         cadena.remove(0);
                         cadR = true;
                         System.out.println("Hay un identificador de más");
-                    }else if (cadenaCopia.get(contador).equals("4")) {
+                    } else if (cadenaCopia.get(contador).equals("4")) {
                         cadena.remove(0);
                         cadR = true;
                         System.out.println("Hay un tipo de más");
@@ -521,13 +560,13 @@ public class tools {
                         cadena.remove(0);
                         cadR = true;
                         System.out.println("Hay un { de más");
-                    }else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador-1).equals("15")) {                        
-                        pila.remove(pila.size()-1);
-                        pila.remove(pila.size()-1);
+                    } else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("15")) {
+                        pila.remove(pila.size() - 1);
+                        pila.remove(pila.size() - 1);
                         System.out.println("Hay un identificador de más");
-                    }else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador-1).equals("22")) {                        
-                        pila.remove(pila.size()-1);
-                        pila.remove(pila.size()-1);
+                    } else if (cadenaCopia.get(contador).equals("0") && cadenaCopia.get(contador - 1).equals("22")) {
+                        pila.remove(pila.size() - 1);
+                        pila.remove(pila.size() - 1);
                         System.out.println("Hay un identificador de más");
                     } else {
                         cadena.add(0, "15");
@@ -628,6 +667,46 @@ public class tools {
             }
         }
         return cadR;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    public boolean existe(String id) {
+        boolean ver = false;
+        if (ids.size() == 0) {
+            ver = false;
+        } else {
+            for (int i = 0; i < ids.size(); i++) {
+                if (ids.get(i).equals(id)) {
+                    ver = true;
+                }
+            }
+        }
+
+        return ver;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    public boolean valTipo(String tipo, String id) {
+        boolean ver = false;
+        if (ids.size() == 0) {
+            ver = false;
+        } else {
+            for (int i = 0; i < ids.size(); i++) {
+                if (ids.get(i).equals(id)) {
+                    if (tipos.get(i).equals(tipo)) {
+                        ver = true;
+                    }
+                }
+            }
+        }
+
+        return ver;
     }
 
 }
